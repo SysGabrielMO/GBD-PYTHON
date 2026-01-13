@@ -2,7 +2,7 @@
 CREATE TABLE AUTOR (
     codigo_autor INT,
     nombre VARCHAR(100) NOT NULL,
-    codigo_profesion INT
+    codigo_profesion INT,
     CONSTRAINT pk_codigo_autor PRIMARY KEY (codigo_autor)
 );
 
@@ -10,7 +10,7 @@ CREATE TABLE AUTOR (
 -- TABLA EDITORIAL
 CREATE TABLE EDITORIAL (
     codigo_editorial INT PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL
+    nombre VARCHAR(100) NOT NULL,
     CONSTRAINT pk_codigo_editorial PRIMARY KEY (codigo_editorial)
 );
 
@@ -23,7 +23,7 @@ CREATE TABLE LIBRO (
     codigo_editorial INT NOT NULL,
     precio DECIMAL(8,2),
     año INT,
-    CONSTRAINT pk_codigo_libro PRIMARY KEY (codigo_libro)
+    CONSTRAINT pk_codigo_libro PRIMARY KEY (codigo_libro),
     CONSTRAINT fk_libro_autor FOREIGN KEY (codigo_autor) REFERENCES AUTOR(codigo_autor),
     CONSTRAINT fk_libro_editorial FOREIGN KEY (codigo_editorial) REFERENCES EDITORIAL(codigo_editorial)
 );
