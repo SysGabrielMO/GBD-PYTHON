@@ -9,9 +9,9 @@ CREATE TABLE AUTOR (
 
 -- TABLA EDITORIAL
 CREATE TABLE EDITORIAL (
-    codigo_editorial INT PRIMARY KEY,
+    codigo_edit INT,
     nombre VARCHAR(100) NOT NULL,
-    CONSTRAINT pk_codigo_editorial PRIMARY KEY (codigo_editorial)
+    CONSTRAINT pk_codigo_editorial PRIMARY KEY (codigo_edit)
 );
 
 
@@ -25,5 +25,5 @@ CREATE TABLE LIBRO (
     año INT,
     CONSTRAINT pk_codigo_libro PRIMARY KEY (codigo_libro),
     CONSTRAINT fk_libro_autor FOREIGN KEY (codigo_autor) REFERENCES AUTOR(codigo_autor),
-    CONSTRAINT fk_libro_editorial FOREIGN KEY (codigo_editorial) REFERENCES EDITORIAL(codigo_editorial)
+    CONSTRAINT fk_libro_editorial FOREIGN KEY (codigo_editorial) REFERENCES EDITORIAL(codigo_edit)
 );
