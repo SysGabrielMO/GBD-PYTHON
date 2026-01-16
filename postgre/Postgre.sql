@@ -33,7 +33,7 @@ INSERT INTO AUTOR (nombre, codigo_profesion, codigo_autor) VALUES
 ('Carlos Ruiz', 1, 3);
 
 -- Editoriales
-INSERT INTO EDITORIAL (nombre, codigo_edit) VALUES 
+INSERT INTO EDITORIAL (nombre, codigo_editorial) VALUES 
 ('Planeta', 1),
 ('Alfaguara', 2),
 ('Anaya', 3);
