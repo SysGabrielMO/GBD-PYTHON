@@ -14,13 +14,13 @@ def pedir_num(tipo, msg, intentos=3):
     return None
 
 
-def conectar_bd(host, usuario_bd, passwd_bd, nombre_bd):
+def conectar_bd(host, admingabriel, usuario, libreria):
     try:
         db = MySQLdb.connect(
             host=host,
-            user=usuario_bd,
-            passwd=passwd_bd,
-            db=nombre_bd
+            user=admingabriel,
+            passwd=usuario,
+            db=libreria
         )
         return db
     except MySQLdb.Error as e:
