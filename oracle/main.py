@@ -16,16 +16,18 @@ MENU = """
 0. Salir
 """
 
+
 def menu():
     print(MENU)
     op = pedirnum(int, "Opción: ")
     return op if op is not None else -1
 
+
 def main():
-        db = conectarbd(
+    db = conectarbd(
         host="192.168.122.66",
-        usuario="admingabriel",
-        password="usuario",
+        usuario="TU_USUARIO",
+        password="TU_PASSWORD",
         service_name="XE",
         port=1521
     )
@@ -82,6 +84,7 @@ def main():
         op = menu()
 
     desconectarbd(db)
+
 
 if __name__ == "__main__":
     main()

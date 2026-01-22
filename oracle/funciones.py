@@ -2,6 +2,7 @@ import sys
 import oracledb
 from oracledb import rows
 
+
 def pedirnum(tipo, msg, intentos=3):
     for _ in range(intentos):
         txt = input(msg).strip()
@@ -12,25 +13,25 @@ def pedirnum(tipo, msg, intentos=3):
     print("Demasiados intentos. Operación cancelada.")
     return None
 
+
 def conectarbd(host, usuario, password, service_name="XE", port=1521):
-    """
-    Devuelve una conexión a Oracle con python-oracledb.
-    """
     try:
         dsn = f"{host}:{port}/{service_name}"
-        conn = oracledb.connect(user=usuario, password=password, dsn=dsn)
-        return conn
+        return oracledb.connect(user=usuario, password=password, dsn=dsn)
     except oracledb.Error as e:
         print("No puedo conectar a la base de datos:", e)
         sys.exit(1)
 
+
 def desconectarbd(conn):
     conn.close()
+
 
 def _dict_cursor(conn):
     cur = conn.cursor()
     cur.rowfactory = rows.dictfactory
     return cur
+
 
 def listarautorestotallibros(conn):
     sql = """
@@ -52,6 +53,7 @@ def listarautorestotallibros(conn):
     except oracledb.Error as e:
         print("Error en la consulta:", e)
 
+
 def buscartitulosporprefijo(conn, prefijo):
     sql = "SELECT titulo FROM LIBRO WHERE titulo LIKE :1 ORDER BY titulo"
     try:
@@ -65,6 +67,7 @@ def buscartitulosporprefijo(conn, prefijo):
                 print("-", f["TITULO"])
     except oracledb.Error as e:
         print("Error en la consulta:", e)
+
 
 def filtrarlibrosporprecio(conn, preciomin, preciomax):
     sql = """
@@ -84,6 +87,7 @@ def filtrarlibrosporprecio(conn, preciomin, preciomax):
                 print("-", f["TITULO"], "precio", f["PRECIO"])
     except oracledb.Error as e:
         print("Error en la consulta:", e)
+
 
 def buscarrelacionadaautorlibroseditorial(conn, nombreautor):
     sql = """
@@ -110,13 +114,14 @@ def buscarrelacionadaautorlibroseditorial(conn, nombreautor):
     except oracledb.Error as e:
         print("Error en la consulta:", e)
 
+
 def siguientecodigolibro(conn):
-    # Mantiene tu lógica original (MAX+1). Ojo: en Oracle lo ideal es SEQUENCE.
     sql = "SELECT COALESCE(MAX(codigolibro), 0) + 1 AS nextid FROM LIBRO"
     with _dict_cursor(conn) as cur:
         cur.execute(sql)
         fila = cur.fetchone()
         return fila["NEXTID"]
+
 
 def insertarlibro(conn, titulo, codigoautor, codigoeditorial, precio, anio, codigolibro=None):
     if codigolibro is None:
@@ -130,5 +135,49 @@ def insertarlibro(conn, titulo, codigoautor, codigoeditorial, precio, anio, codi
         with conn.cursor() as cur:
             cur.execute(sql, (codigolibro, titulo, codigoautor, codigoeditorial, precio, anio))
         conn.commit()
-        print("Libro insertado
+        print("Libro insertado con codigolibro", codigolibro)
+    except oracledb.Error as e:
+        print("Error al insertar:", e)
+        conn.rollback()
 
+
+def borrarlibrosporautor(conn, nombreautor):
+    sql = """
+    DELETE FROM LIBRO
+    WHERE codigoautor IN (
+        SELECT codigoautor
+        FROM AUTOR
+        WHERE nombre LIKE :1
+    )
+    """
+    try:
+        with conn.cursor() as cur:
+            cur.execute(sql, ("%" + nombreautor + "%",))
+            borrados = cur.rowcount
+        conn.commit()
+        print("Libros eliminados:", borrados)
+    except oracledb.Error as e:
+        print("Error al borrar:", e)
+        conn.rollback()
+
+
+def actualizarpreciosporeditorial(conn, nombreeditorial, porcentaje):
+    factor = 1.0 + (porcentaje / 100.0)
+    sql = """
+    UPDATE LIBRO
+    SET precio = precio * :1
+    WHERE codigoeditorial IN (
+        SELECT codigoeditorial
+        FROM EDITORIAL
+        WHERE nombre LIKE :2
+    )
+    """
+    try:
+        with conn.cursor() as cur:
+            cur.execute(sql, (factor, "%" + nombreeditorial + "%"))
+            actualizados = cur.rowcount
+        conn.commit()
+        print("Libros actualizados:", actualizados)
+    except oracledb.Error as e:
+        print("Error al actualizar:", e)
+        conn.rollback()
