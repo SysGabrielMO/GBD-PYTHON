@@ -28,24 +28,24 @@ CREATE TABLE libro (
 
 -- Autores
 INSERT ALL
-  INTO AUTOR (nombre, codigo_profesion, codigo_autor) VALUES ('Marcos García', 1, 1),
-  INTO AUTOR (nombre, codigo_profesion, codigo_autor) VALUES ('Ana López', 2, 2),
-  INTO AUTOR (nombre, codigo_profesion, codigo_autor) VALUES ('Carlos Ruiz', 1, 3),
+  INTO AUTOR (nombre, codigo_profesion, codigo_autor) VALUES ('Marcos García', 1, 1)
+  INTO AUTOR (nombre, codigo_profesion, codigo_autor) VALUES ('Ana López', 2, 2)
+  INTO AUTOR (nombre, codigo_profesion, codigo_autor) VALUES ('Carlos Ruiz', 1, 3)
   select * FROM dual;
     
 -- Editoriales
 INSERT ALL
-  INTO EDITORIAL (nombre, codigo_edit) VALUES ('Planeta', 1),
-  INTO EDITORIAL (nombre, codigo_edit) VALUES ('Alfaguara', 2),
-  INTO EDITORIAL (nombre, codigo_edit) VALUES ('Anaya', 3),
+  INTO EDITORIAL (nombre, codigo_edit) VALUES ('Planeta', 1)
+  INTO EDITORIAL (nombre, codigo_edit) VALUES ('Alfaguara', 2)
+  INTO EDITORIAL (nombre, codigo_edit) VALUES ('Anaya', 3)
   select * FROM dual;
 
 -- Libros
 INSERT ALL
-  INTO LIBRO (titulo, codigo_autor, codigo_editorial, precio, año, codigo_libro) VALUES ('El viaje perdido', 1, 1, 19.95, 2020, 1),
-  INTO LIBRO (titulo, codigo_autor, codigo_editorial, precio, año, codigo_libro) VALUES ('El camino oscuro', 1, 2, 22.50, 2021, 2),
-  INTO LIBRO (titulo, codigo_autor, codigo_editorial, precio, año, codigo_libro) VALUES ('Sombras del pasado', 1, 1, 18.00, 2019, 3),
-  INTO LIBRO (titulo, codigo_autor, codigo_editorial, precio, año, codigo_libro) VALUES ('Luz de invierno', 2, 3, 15.99, 2022, 4),
-  INTO LIBRO (titulo, codigo_autor, codigo_editorial, precio, año, codigo_libro) VALUES ('La última frontera', 2, 2, 24.00, 2023, 5),
-  INTO LIBRO (titulo, codigo_autor, codigo_editorial, precio, año, codigo_libro) VALUES ('Ecos del mar', 3, 1, 20.00, 2021, 6),
+  INTO LIBRO (titulo, codigo_autor, codigo_editorial, precio, año, codigo_libro) VALUES ('El viaje perdido', 1, 1, 19.95, 2020, 1)
+  INTO LIBRO (titulo, codigo_autor, codigo_editorial, precio, año, codigo_libro) VALUES ('El camino oscuro', 1, 2, 22.50, 2021, 2)
+  INTO LIBRO (titulo, codigo_autor, codigo_editorial, precio, año, codigo_libro) VALUES ('Sombras del pasado', 1, 1, 18.00, 2019, 3)
+  INTO LIBRO (titulo, codigo_autor, codigo_editorial, precio, año, codigo_libro) VALUES ('Luz de invierno', 2, 3, 15.99, 2022, 4)
+  INTO LIBRO (titulo, codigo_autor, codigo_editorial, precio, año, codigo_libro) VALUES ('La última frontera', 2, 2, 24.00, 2023, 5)
+  INTO LIBRO (titulo, codigo_autor, codigo_editorial, precio, año, codigo_libro) VALUES ('Ecos del mar', 3, 1, 20.00, 2021, 6)
   select * FROM dual;
