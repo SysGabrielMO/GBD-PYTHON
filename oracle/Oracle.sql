@@ -1,3 +1,6 @@
+USER:admingabriel PASSWORD:usuario
+
+
 -- TABLA AUTOR
 CREATE TABLE autor (
     codigo_autor NUMBER,
