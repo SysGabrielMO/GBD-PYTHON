@@ -1,3 +1,5 @@
+USER:admingabriel PASSWORD:usuario BD:libreria
+
 -- TABLA AUTOR
 CREATE TABLE AUTOR (
     codigo_autor INT,
